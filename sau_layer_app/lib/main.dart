@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sau_layer_app/presentation/nasa_history/bloc/nasa_history_bloc.dart';
 import 'package:sau_layer_app/presentation/nasa_history/page/nasa_history_page.dart';
-import 'package:sau_layer_app/service_locator.dart';
+import 'package:sau_layer_app/core/service_locator.dart';
 
 void main() {
   setup();

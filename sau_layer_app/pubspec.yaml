@@ -42,6 +42,7 @@ dependencies:
   flutter_bloc: ^9.0.0
   get_it: ^7.6.0
   provider: ^6.0.5
+  google_fonts: ^6.1.0
 
   sau_layer_data:
     git:

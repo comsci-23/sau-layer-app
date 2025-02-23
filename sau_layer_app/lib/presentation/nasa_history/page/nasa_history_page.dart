@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sau_layer_app/presentation/nasa_history/page/nasa_detail_page.dart';
+import 'package:sau_layer_app/utils/AppColors.dart';
 import 'package:sau_layer_data/data/datasources/nasa_layer_service.dart';
 import 'package:sau_layer_data/domain/entities/nasa_layer_data.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NasaHistoryPage extends StatefulWidget {
   const NasaHistoryPage({super.key});
@@ -27,14 +29,14 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.black, Colors.grey.shade900],
+            colors: [AppColors.gradientStartColor, AppColors.gradientEndColor],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
         child: CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
+            SliverAppBar(
               backgroundColor: Colors.transparent,
               expandedHeight: 100,
               floating: false,
@@ -42,10 +44,10 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   "NASA Space Gallery",
-                  style: TextStyle(
-                    color: Colors.white,
+                  style: GoogleFonts.poppins(
+                    color: AppColors.textColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 16,
                   ),
                 ),
                 centerTitle: true,
@@ -100,10 +102,10 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.blue.withOpacity(0.3),
+              color: AppColors.shadowColor,
               spreadRadius: 2,
               blurRadius: 10,
-              offset: const Offset(0, 5),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -116,8 +118,8 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
                   shaderCallback: (Rect bounds) {
                     return LinearGradient(
                       colors: [
-                        Colors.black.withOpacity(0.2),
-                        Colors.transparent
+                        AppColors.imageGradientStartColor,
+                        AppColors.imageGradientEndColor
                       ],
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
@@ -150,8 +152,8 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.transparent
+                        AppColors.cardGradientStartColor,
+                        AppColors.cardGradientEndColor
                       ],
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
@@ -159,16 +161,9 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
                   ),
                   child: Text(
                     item.title,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: GoogleFonts.roboto(
+                      color: AppColors.textColor,
                       fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 10.0,
-                          color: Colors.blue,
-                          offset: Offset(2, 2),
-                        ),
-                      ],
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

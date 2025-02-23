@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
 import 'package:sau_layer_app/utils/AppColors.dart';
-import 'package:sau_layer_data/domain/entities/nasa_layer_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NasaDetailPage extends StatelessWidget {
-  final NasaLayerData nasaData;
+  final NasaHistoryModel nasaHistoryModel;
 
-  const NasaDetailPage({super.key, required this.nasaData});
+  const NasaDetailPage({super.key, required this.nasaHistoryModel});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class NasaDetailPage extends StatelessWidget {
           slivers: <Widget>[
             SliverAppBar(
               title: Text(
-                nasaData.title,
+                nasaHistoryModel.title,
                 style: GoogleFonts.poppins(
                   color: AppColors.textColor,
                   fontWeight: FontWeight.bold,
@@ -74,13 +74,13 @@ class NasaDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Hero(
-                      tag: nasaData.id,
+                      tag: nasaHistoryModel.id,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: AspectRatio(
                           aspectRatio: 16 / 9,
                           child: Image.network(
-                            nasaData.imageUrl,
+                            nasaHistoryModel.imageUrl,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -88,7 +88,7 @@ class NasaDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      nasaData.title,
+                      nasaHistoryModel.title,
                       style: GoogleFonts.poppins(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class NasaDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      nasaData.description,
+                      nasaHistoryModel.description,
                       style: GoogleFonts.roboto(
                         fontSize: 16,
                         color: AppColors.textColor,
@@ -105,7 +105,7 @@ class NasaDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'ID: ${nasaData.id}',
+                      'ID: ${nasaHistoryModel.id}',
                       style: GoogleFonts.roboto(
                         fontSize: 14,
                         color: AppColors.secondaryTextColor,

@@ -23,3 +23,15 @@ class NasaHistoryModel {
     );
   }
 }
+
+class NasaHistoryListModel {
+  final List<NasaHistoryModel> items;
+
+  NasaHistoryListModel({required this.items});
+
+  factory NasaHistoryListModel.fromJson(List<dynamic> jsonList) {
+    List<NasaHistoryModel> items =
+        jsonList.map((json) => NasaHistoryModel.fromJson(json)).toList();
+    return NasaHistoryListModel(items: items);
+  }
+}

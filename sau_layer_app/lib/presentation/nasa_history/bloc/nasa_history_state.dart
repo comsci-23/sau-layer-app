@@ -1,21 +1,28 @@
+// filepath: /Users/chaiwat.dev/Documents/sau-layer-app/sau_layer_app/lib/presentation/nasa_history/bloc/nasa_history_state.dart
 part of 'nasa_history_bloc.dart';
 
-@immutable
-sealed class NasaHistoryState extends Equatable {
+abstract class NasaHistoryState extends Equatable {
   const NasaHistoryState();
 
   @override
   List<Object> get props => [];
 }
 
-final class NasaHistoryInitial extends NasaHistoryState {}
+class NasaHistoryInitial extends NasaHistoryState {}
 
-final class NasaHistoryLoading extends NasaHistoryState {}
+class NasaHistoryLoading extends NasaHistoryState {}
 
-final class NasaHistoryError extends NasaHistoryState {}
+class NasaHistoryError extends NasaHistoryState {
+  final String message;
 
-final class NasaHistoryHasData extends NasaHistoryState {
-  final NasaHistoryModel model;
+  const NasaHistoryError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class NasaHistoryHasData extends NasaHistoryState {
+  final NasaHistoryListModel model;
 
   const NasaHistoryHasData(this.model);
 

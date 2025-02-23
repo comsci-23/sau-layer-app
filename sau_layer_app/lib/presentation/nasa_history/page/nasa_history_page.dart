@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
+import 'package:sau_layer_app/presentation/nasa_history/bloc/nasa_history_bloc.dart';
 import 'package:sau_layer_app/presentation/nasa_history/page/nasa_detail_page.dart';
 import 'package:sau_layer_app/utils/AppColors.dart';
-import 'package:sau_layer_data/data/datasources/nasa_layer_service.dart';
-import 'package:sau_layer_data/domain/entities/nasa_layer_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NasaHistoryPage extends StatefulWidget {
@@ -13,14 +14,10 @@ class NasaHistoryPage extends StatefulWidget {
 }
 
 class _NasaHistoryPageState extends State<NasaHistoryPage> {
-  late NasaLayerServiceImpl _nasaService;
-  late Future<List<NasaLayerData>> _futureData;
-
   @override
   void initState() {
     super.initState();
-    _nasaService = NasaLayerServiceImpl();
-    _futureData = _nasaService.fetchLayerData();
+    context.read<NasaHistoryBloc>().add(const NasaHistory());
   }
 
   @override
@@ -54,15 +51,14 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
               ),
             ),
             SliverFillRemaining(
-              child: FutureBuilder<List<NasaLayerData>>(
-                future: _futureData,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+              child: BlocBuilder<NasaHistoryBloc, NasaHistoryState>(
+                builder: (context, state) {
+                  if (state is NasaHistoryLoading) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text("Error: ${snapshot.error}"));
-                  } else {
-                    final data = snapshot.data ?? [];
+                  } else if (state is NasaHistoryError) {
+                    return Center(child: Text("Error: ${state.message}"));
+                  } else if (state is NasaHistoryHasData) {
+                    final data = state.model.items; // Access the list property
                     return GridView.builder(
                       padding: const EdgeInsets.all(10),
                       gridDelegate:
@@ -77,6 +73,8 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
                         return _buildImageCard(data[index]);
                       },
                     );
+                  } else {
+                    return const Center(child: Text("No data available"));
                   }
                 },
               ),
@@ -87,13 +85,15 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
     );
   }
 
-  Widget _buildImageCard(NasaLayerData item) {
+  Widget _buildImageCard(NasaHistoryModel item) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => NasaDetailPage(nasaData: item),
+            builder: (context) => NasaDetailPage(
+              nasaHistoryModel: item,
+            ),
           ),
         );
       },

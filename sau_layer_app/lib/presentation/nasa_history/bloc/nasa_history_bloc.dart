@@ -1,5 +1,7 @@
+// filepath: /Users/chaiwat.dev/Documents/sau-layer-app/sau_layer_app/lib/presentation/nasa_history/bloc/nasa_history_bloc.dart
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
 import 'package:sau_layer_data/domain/usecases/fetch_layer_data.dart';
@@ -12,32 +14,37 @@ class NasaHistoryBloc extends Bloc<NasaHistoryEvent, NasaHistoryState> {
 
   NasaHistoryBloc({required this.fetchLayerData})
       : super(NasaHistoryInitial()) {
-
     on<NasaHistoryEvent>((event, emit) async {
       // TODO: implement event handler
       emit(NasaHistoryLoading());
-      print('NasaHistoryBloc =====> $event');
+      debugPrint('NasaHistoryBloc =====> $event');
 
       try {
         final result = await fetchLayerData();
 
         result.fold(
-          (failure) => emit(NasaHistoryError()),
+          (failure) {
+            return emit(const NasaHistoryError('Failed to fetch data'));
+          },
           (data) {
             final nasaHistoryData = NasaHistoryHasData(
-              NasaHistoryModel(
-                id: data[0].id,
-                title: data[0].title,
-                description: data[0].description,
-                imageUrl: data[0].imageUrl,
+              NasaHistoryListModel(
+                items: data
+                    .map((item) => NasaHistoryModel(
+                          id: item.id,
+                          title: item.title,
+                          description: item.description,
+                          imageUrl: item.imageUrl,
+                        ))
+                    .toList(),
               ),
             );
-            emit(nasaHistoryData);
+            return emit(nasaHistoryData);
           },
         );
       } catch (e) {
-        print('NasaHistoryBloc =====> Error');
-        emit(NasaHistoryError());
+        debugPrint('NasaHistoryBloc =====> Error: $e');
+        return emit(const NasaHistoryError('An error occurred'));
       }
     });
   }

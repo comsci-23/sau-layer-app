@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
 import 'package:sau_layer_app/presentation/nasa_history/bloc/nasa_history_bloc.dart';
 import 'package:sau_layer_app/presentation/nasa_history/page/nasa_detail_page.dart';
-import 'package:sau_layer_app/utils/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NasaHistoryPage extends StatefulWidget {
@@ -23,158 +22,97 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.gradientStartColor, AppColors.gradientEndColor],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              expandedHeight: 100,
-              floating: false,
-              pinned: false,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  "NASA Space Gallery",
-                  style: GoogleFonts.poppins(
-                    color: AppColors.textColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                centerTitle: true,
-              ),
-            ),
-            SliverFillRemaining(
-              child: BlocBuilder<NasaHistoryBloc, NasaHistoryState>(
-                builder: (context, state) {
-                  if (state is NasaHistoryLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is NasaHistoryError) {
-                    return Center(child: Text("Error: ${state.message}"));
-                  } else if (state is NasaHistoryHasData) {
-                    final data = state.model.items; // Access the list property
-                    return GridView.builder(
-                      padding: const EdgeInsets.all(10),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.7,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return _buildImageCard(data[index]);
-                      },
-                    );
-                  } else {
-                    return const Center(child: Text("No data available"));
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        title: Text("NASA", style: GoogleFonts.poppins()),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(icon: Icon(Icons.favorite_border), onPressed: () {}),
+          IconButton(icon: Icon(Icons.send), onPressed: () {}),
+        ],
+      ),
+      body: BlocBuilder<NasaHistoryBloc, NasaHistoryState>(
+        builder: (context, state) {
+          if (state is NasaHistoryLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is NasaHistoryError) {
+            return Center(child: Text("Error: ${state.message}"));
+          } else if (state is NasaHistoryHasData) {
+            final data = state.model.items;
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return _buildPostCard(data[index]);
+              },
+            );
+          } else {
+            return const Center(child: Text("No data available"));
+          }
+        },
       ),
     );
   }
 
-  Widget _buildImageCard(NasaHistoryModel item) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NasaDetailPage(
-              nasaHistoryModel: item,
-            ),
+  Widget _buildPostCard(NasaHistoryModel item) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(item.imageUrl),
           ),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.shadowColor,
-              spreadRadius: 2,
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          title: const Text("NASA"),
+          subtitle: Text("${DateTime.now().toLocal()}"),
+          trailing: Icon(Icons.more_vert),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NasaDetailPage(nasaHistoryModel: item),
+              ),
+            );
+          },
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image.network(item.imageUrl, fit: BoxFit.cover),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Positioned.fill(
-                child: ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return LinearGradient(
-                      colors: [
-                        AppColors.imageGradientStartColor,
-                        AppColors.imageGradientEndColor
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ).createShader(bounds);
-                  },
-                  blendMode: BlendMode.srcOver,
-                  child: Image.network(
-                    item.imageUrl,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return AnimatedOpacity(
-                          opacity: 1.0,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeIn,
-                          child: child,
-                        );
-                      }
-                      return const Center(child: CircularProgressIndicator());
-                    },
-                  ),
-                ),
+              Row(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.favorite_border), onPressed: () {}),
+                  IconButton(icon: Icon(Icons.comment), onPressed: () {}),
+                  IconButton(icon: Icon(Icons.send), onPressed: () {}),
+                ],
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.cardGradientStartColor,
-                        AppColors.cardGradientEndColor
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ),
-                  ),
-                  child: Text(
-                    item.title,
-                    style: GoogleFonts.roboto(
-                      color: AppColors.textColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+              IconButton(icon: Icon(Icons.bookmark_border), onPressed: () {}),
             ],
           ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            item.title,
+            style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Text(
+            item.description,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Divider(),
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
-import 'package:sau_layer_app/utils/AppColors.dart';
+import 'package:sau_layer_app/utils/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NasaDetailPage extends StatelessWidget {

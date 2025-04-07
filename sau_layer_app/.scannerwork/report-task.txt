@@ -1,0 +1,6 @@
+projectKey=sau_layer_app
+serverUrl=http://localhost:9000
+serverVersion=25.3.0.104237
+dashboardUrl=http://localhost:9000/dashboard?id=sau_layer_app
+ceTaskId=52f37bf1-4329-4abc-913b-c7416c493e84
+ceTaskUrl=http://localhost:9000/api/ce/task?id=52f37bf1-4329-4abc-913b-c7416c493e84

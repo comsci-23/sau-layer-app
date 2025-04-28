@@ -36,8 +36,8 @@ void main() {
           NasaHistoryListModel(
             items: [
               NasaHistoryModel(
-                title: 'Mars Rover',
-                description: 'Exploration of Mars',
+                title: 'Apollo 11',
+                description: 'Moon landing mission',
                 id: '1',
                 imageUrl:
                     'https://mars.nasa.gov/system/news_items/main_images/10440_PIA25681-FigureA-web.jpg',
@@ -49,7 +49,7 @@ void main() {
 
       await _buildWidget(tester);
 
-      expect(find.text('Mars Rover'), findsOneWidget);
+      expect(find.text('Apollo 11'), findsOneWidget);
     });
   });
   testWidgets('displays loading indicator when NasaHistoryLoading',

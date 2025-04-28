@@ -49,7 +49,7 @@ void main() {
 
       await _buildWidget(tester);
 
-      expect(find.text('Test Develop Change'), findsOneWidget);
+     expect(find.text('Test UnitTest Change'), findsOneWidget);
     });
   });
   testWidgets('displays loading indicator when NasaHistoryLoading',

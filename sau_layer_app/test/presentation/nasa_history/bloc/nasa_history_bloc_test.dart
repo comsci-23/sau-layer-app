@@ -17,6 +17,10 @@ void main() {
     mockNasaHistory = MockNasaHistory();
   });
 
+  tearDown(() {
+    reset(mockNasaHistory);
+  });
+
   final tEntities = [
     NasaLayerData(
       id: '1',

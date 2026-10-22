@@ -9,7 +9,7 @@ class NasaHistoryPage extends StatefulWidget {
   const NasaHistoryPage({super.key});
 
   @override
-  _NasaHistoryPageState createState() => _NasaHistoryPageState();
+  State<NasaHistoryPage> createState() => _NasaHistoryPageState();
 }
 
 class _NasaHistoryPageState extends State<NasaHistoryPage> {
@@ -27,8 +27,8 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
-          IconButton(icon: Icon(Icons.favorite_border), onPressed: () {}),
-          IconButton(icon: Icon(Icons.send), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.favorite_border), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.send), onPressed: () {}),
         ],
       ),
       body: BlocBuilder<NasaHistoryBloc, NasaHistoryState>(
@@ -63,7 +63,7 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
           ),
           title: const Text("NASA"),
           subtitle: Text("${DateTime.now().toLocal()}"),
-          trailing: Icon(Icons.more_vert),
+          trailing: const Icon(Icons.more_vert),
         ),
         GestureDetector(
           onTap: () {
@@ -87,12 +87,14 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
               Row(
                 children: [
                   IconButton(
-                      icon: Icon(Icons.favorite_border), onPressed: () {}),
-                  IconButton(icon: Icon(Icons.comment), onPressed: () {}),
-                  IconButton(icon: Icon(Icons.send), onPressed: () {}),
+                      icon: const Icon(Icons.favorite_border),
+                      onPressed: () {}),
+                  IconButton(icon: const Icon(Icons.comment), onPressed: () {}),
+                  IconButton(icon: const Icon(Icons.send), onPressed: () {}),
                 ],
               ),
-              IconButton(icon: Icon(Icons.bookmark_border), onPressed: () {}),
+              IconButton(
+                  icon: const Icon(Icons.bookmark_border), onPressed: () {}),
             ],
           ),
         ),
@@ -111,7 +113,7 @@ class _NasaHistoryPageState extends State<NasaHistoryPage> {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }

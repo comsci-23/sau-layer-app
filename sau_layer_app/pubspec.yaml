@@ -47,7 +47,7 @@ dependencies:
 
   sau_layer_data:
     git:
-      url: https://github.com/com-sci-23/sau-layer-data
+      url: https://github.com/comsci-23/sau-layer-data
       path: sau_layer_data
       ref: main
 
@@ -55,7 +55,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  mockito: ^5.4.3
+  mocktail: ^1.0.4
   bloc_test: ^10.0.0
   network_image_mock: ^2.0.1
 

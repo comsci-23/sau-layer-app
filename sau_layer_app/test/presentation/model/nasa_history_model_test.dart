@@ -22,7 +22,11 @@ void main() {
     test('fromJson handles empty links', () {
       final json = {
         'data': [
-          {'nasa_id': '987', 'title': 'No Links', 'description': 'No Links Desc'}
+          {
+            'nasa_id': '987',
+            'title': 'No Links',
+            'description': 'No Links Desc'
+          }
         ],
         'links': []
       };

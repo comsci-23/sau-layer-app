@@ -25,7 +25,7 @@ void main() {
     });
 
     test('shadowColor should be Colors.blue with 0.3 opacity', () {
-      final expected = Colors.blue.withOpacity(0.3);
+      final expected = Colors.blue.withValues(alpha: 0.3);
       expect(AppColors.shadowColor, expected);
     });
 
@@ -39,7 +39,7 @@ void main() {
     });
 
     test('cardGradientStartColor should be black with 0.8 opacity', () {
-      final expected = Colors.black.withOpacity(0.8);
+      final expected = Colors.black.withValues(alpha: 0.8);
       expect(AppColors.cardGradientStartColor, expected);
     });
 
@@ -48,7 +48,7 @@ void main() {
     });
 
     test('imageGradientStartColor should be black with 0.2 opacity', () {
-      final expected = Colors.black.withOpacity(0.2);
+      final expected = Colors.black.withValues(alpha: 0.2);
       expect(AppColors.imageGradientStartColor, expected);
     });
 

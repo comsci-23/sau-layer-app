@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sau_layer_app/presentation/nasa_history/bloc/nasa_history_bloc.dart';
 import 'package:sau_layer_app/presentation/nasa_history/page/nasa_history_page.dart';
-import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
 
 class MockNasaHistoryBloc extends MockBloc<NasaHistoryEvent, NasaHistoryState>
     implements NasaHistoryBloc {}
@@ -17,7 +16,7 @@ void main() {
     mockBloc = MockNasaHistoryBloc();
   });
 
-  Future<void> _buildWidget(WidgetTester tester) async {
+  Future<void> buildWidget(WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<NasaHistoryBloc>(
@@ -31,13 +30,13 @@ void main() {
   testWidgets('displays loading indicator when NasaHistoryLoading',
       (tester) async {
     when(() => mockBloc.state).thenReturn(NasaHistoryLoading());
-    await _buildWidget(tester);
+    await buildWidget(tester);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('displays error message when NasaHistoryError', (tester) async {
     when(() => mockBloc.state).thenReturn(const NasaHistoryError('Test Error'));
-    await _buildWidget(tester);
+    await buildWidget(tester);
     expect(find.textContaining('Error: Test Error'), findsOneWidget);
   });
 }

@@ -30,8 +30,7 @@ void main() {
     ),
   ];
 
-  NasaHistoryBloc buildBloc() =>
-      NasaHistoryBloc(nasaHistory: mockNasaHistory);
+  NasaHistoryBloc buildBloc() => NasaHistoryBloc(nasaHistory: mockNasaHistory);
 
   test('initial state is NasaHistoryInitial', () {
     expect(buildBloc().state, isA<NasaHistoryInitial>());

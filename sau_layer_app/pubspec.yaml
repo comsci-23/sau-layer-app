@@ -47,7 +47,7 @@ dependencies:
 
   sau_layer_data:
     git:
-      url: https://github.com/com-sci-23/sau-layer-data
+      url: https://github.com/comsci-23/sau-layer-data
       path: sau_layer_data
       ref: main
 

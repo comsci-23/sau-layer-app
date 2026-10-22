@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:sau_layer_app/presentation/nasa_history/bloc/nasa_history_bloc.dart';
+import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
 import 'package:sau_layer_app/presentation/nasa_history/page/nasa_history_page.dart';
 
 class MockNasaHistoryBloc extends MockBloc<NasaHistoryEvent, NasaHistoryState>
@@ -46,9 +47,9 @@ void main() {
         ),
       );
 
-      await _buildWidget(tester);
+      await buildWidget(tester);
 
-     expect(find.text('Test unit test Change'), findsOneWidget);
+      expect(find.text('Apollo 11'), findsOneWidget);
     });
   });
   testWidgets('displays loading indicator when NasaHistoryLoading',

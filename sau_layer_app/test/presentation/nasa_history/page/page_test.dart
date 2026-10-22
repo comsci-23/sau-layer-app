@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:sau_layer_app/presentation/nasa_history/bloc/nasa_history_bloc.dart';
-import 'package:sau_layer_app/presentation/nasa_history/page/nasa_history_page.dart';
 import 'package:sau_layer_app/presentation/model/nasa_history_model.dart';
+import 'package:sau_layer_app/presentation/nasa_history/page/nasa_history_page.dart';
 
 class MockNasaHistoryBloc extends MockBloc<NasaHistoryEvent, NasaHistoryState>
     implements NasaHistoryBloc {}
@@ -18,7 +18,7 @@ void main() {
     mockBloc = MockNasaHistoryBloc();
   });
 
-  Future<void> _buildWidget(WidgetTester tester) async {
+  Future<void> buildWidget(WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<NasaHistoryBloc>(
@@ -47,21 +47,21 @@ void main() {
         ),
       );
 
-      await _buildWidget(tester);
+      await buildWidget(tester);
 
-     expect(find.text('Test unit test Change'), findsOneWidget);
+      expect(find.text('Apollo 11'), findsOneWidget);
     });
   });
   testWidgets('displays loading indicator when NasaHistoryLoading',
       (tester) async {
     when(() => mockBloc.state).thenReturn(NasaHistoryLoading());
-    await _buildWidget(tester);
+    await buildWidget(tester);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('displays error message when NasaHistoryError', (tester) async {
     when(() => mockBloc.state).thenReturn(const NasaHistoryError('Test Error'));
-    await _buildWidget(tester);
+    await buildWidget(tester);
     expect(find.textContaining('Error: Test Error'), findsOneWidget);
   });
 }

@@ -66,7 +66,7 @@ lib/
 
 ```bash
 git clone https://github.com/com-sci-23/sau-layer-app.git
-cd sau-layer-app/sau_layer_app
+cd sau-layer-app
 flutter pub get
 ```
 

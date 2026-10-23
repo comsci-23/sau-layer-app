@@ -606,9 +606,11 @@ packages:
   sau_layer_data:
     dependency: "direct main"
     description:
-      path: "../sau-layer-data"
-      relative: true
-    source: path
+      path: sau_layer_data
+      ref: main
+      resolved-ref: "4380c8bb158860d8747e399114ed26f77a6a4897"
+      url: "https://github.com/comsci-23/sau-layer-data"
+    source: git
     version: "0.0.1"
   shelf:
     dependency: transitive

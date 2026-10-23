@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "dev",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_dev.dart",
+      "args": ["--flavor", "dev"]
+    },
+    {
+      "name": "uat",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_uat.dart",
+      "args": ["--flavor", "uat"]
+    },
+    {
+      "name": "prod",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_prod.dart",
+      "args": ["--flavor", "prod"]
+    }
+  ]
+}

@@ -46,11 +46,10 @@ dependencies:
   equatable: ^2.0.5
 
   sau_layer_data:
-    # git:
-    #   url: https://github.com/comsci-23/sau-layer-data
-    #   path: sau_layer_data
-    #   ref: main
-    path: ../sau-layer-data
+    git:
+      url: https://github.com/comsci-23/sau-layer-data
+      path: sau_layer_data
+      ref: main
 
 dev_dependencies:
   flutter_test:
